@@ -11,7 +11,11 @@ const path         = require('path');
 
 
 mongoose
-  .connect('mongodb://localhost/starter-code', {useNewUrlParser: true})
+  .connect('mongodb://localhost/starter-code', {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -52,7 +56,12 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 
 const index = require('./routes/index');
+const celebrities = require('./routes/celebrities.js');
+// const movies = require('./routes/movies.js');
+
 app.use('/', index);
+app.use('/celebrities', celebrities);
+// app.use('/movies', movies);
 
 
 module.exports = app;
